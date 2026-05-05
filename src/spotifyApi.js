@@ -166,8 +166,8 @@ export const createOrUpdatePlaylist = async (userId, tracksUris) => {
     playlistId = newPlaylist.id;
   }
 
-  // Add tracks using POST and the new 2026 /items endpoint
-  await fetchWebApi(`v1/playlists/${playlistId}/items`, 'POST', {
+  // Use PUT on the new 2026 /items endpoint to REPLACE content
+  await fetchWebApi(`v1/playlists/${playlistId}/items`, 'PUT', {
     uris: tracksUris
   });
 
