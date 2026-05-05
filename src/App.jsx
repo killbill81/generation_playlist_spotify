@@ -18,6 +18,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [playlistId, setPlaylistId] = useState(null);
+  const [trackCount, setTrackCount] = useState(30);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -82,7 +83,7 @@ function App() {
         return;
       }
 
-      setStatus('Sélection aléatoire de 30 titres...');
+      setStatus(`Sélection aléatoire de ${trackCount} titres...`);
       // Filtrer les pistes locales ou invalides qui causent une erreur 403
       const validTracks = allTracks.filter(t => t && t.uri && t.uri.startsWith('spotify:track:') && !t.is_local);
       
@@ -94,7 +95,7 @@ function App() {
 
       // Shuffle array
       const shuffled = [...validTracks].sort(() => 0.5 - Math.random());
-      const selectedTracks = shuffled.slice(0, 30);
+      const selectedTracks = shuffled.slice(0, trackCount);
       
       setTracks(selectedTracks);
       
@@ -151,6 +152,28 @@ function App() {
       <main className="dashboard">
         {tracks.length === 0 && !isLoading && (
           <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+            <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+              <label htmlFor="trackCount" style={{ color: 'var(--spotify-grey)' }}>Nombre de titres :</label>
+              <input 
+                id="trackCount"
+                type="number" 
+                min="1" 
+                max="100" 
+                value={trackCount}
+                onChange={(e) => setTrackCount(parseInt(e.target.value) || 1)}
+                className="input-count"
+                style={{
+                  background: 'var(--spotify-black)',
+                  border: '1px solid var(--spotify-dark-grey)',
+                  color: 'white',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  width: '80px',
+                  textAlign: 'center',
+                  fontSize: '1.2rem'
+                }}
+              />
+            </div>
             <button className="btn" onClick={generatePlaylist} style={{ fontSize: '1.2rem', padding: '16px 40px' }}>
               <RefreshCw size={24} />
               Générer la Playlist
@@ -168,10 +191,30 @@ function App() {
 
         {tracks.length > 0 && !isLoading && (
           <>
-            <div className="controls">
+            <div className="controls" style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <label htmlFor="trackCountSmall" style={{ color: 'var(--spotify-grey)', fontSize: '0.9rem' }}>Titres :</label>
+                <input 
+                  id="trackCountSmall"
+                  type="number" 
+                  min="1" 
+                  max="100" 
+                  value={trackCount}
+                  onChange={(e) => setTrackCount(parseInt(e.target.value) || 1)}
+                  style={{
+                    background: 'var(--spotify-black)',
+                    border: '1px solid var(--spotify-dark-grey)',
+                    color: 'white',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    width: '60px',
+                    textAlign: 'center'
+                  }}
+                />
+              </div>
               <button className="btn" onClick={generatePlaylist}>
                 <RefreshCw size={20} />
-                Regénérer avec de nouveaux titres
+                Regénérer
               </button>
             </div>
             
