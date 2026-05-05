@@ -1,4 +1,4 @@
-# Spotify Playlist Generator (2026 Edition) 🎵
+# Spotify Playlist Generator (2026 Edition) v1.1 🎵
 
 Générateur automatique de playlists Spotify à partir des albums sauvegardés dans votre bibliothèque. 
 
