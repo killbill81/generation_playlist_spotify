@@ -153,26 +153,19 @@ function App() {
       <main className="dashboard">
         {tracks.length === 0 && !isLoading && (
           <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-            <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-              <label htmlFor="trackCount" style={{ color: 'var(--spotify-grey)' }}>Nombre de titres :</label>
+            <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
+              <label htmlFor="trackCount" style={{ color: 'var(--spotify-grey)', fontSize: '1.1rem', fontWeight: '600' }}>
+                Nombre de titres :
+              </label>
+              <div className="count-display">{trackCount}</div>
               <input 
                 id="trackCount"
-                type="number" 
+                type="range" 
                 min="1" 
                 max="100" 
                 value={trackCount}
-                onChange={(e) => setTrackCount(parseInt(e.target.value) || 1)}
-                className="input-count"
-                style={{
-                  background: 'var(--spotify-black)',
-                  border: '1px solid var(--spotify-dark-grey)',
-                  color: 'white',
-                  padding: '8px',
-                  borderRadius: '4px',
-                  width: '80px',
-                  textAlign: 'center',
-                  fontSize: '1.2rem'
-                }}
+                onChange={(e) => setTrackCount(parseInt(e.target.value))}
+                className="spotify-slider"
               />
             </div>
             <button className="btn" onClick={generatePlaylist} style={{ fontSize: '1.2rem', padding: '16px 40px' }}>
@@ -192,25 +185,20 @@ function App() {
 
         {tracks.length > 0 && !isLoading && (
           <>
-            <div className="controls" style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <label htmlFor="trackCountSmall" style={{ color: 'var(--spotify-grey)', fontSize: '0.9rem' }}>Titres :</label>
+            <div className="controls" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap', background: 'rgba(255,255,255,0.05)', padding: '1rem 2rem', borderRadius: '500px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: '200px' }}>
+                <label htmlFor="trackCountSmall" style={{ color: 'var(--spotify-grey)', fontSize: '0.9rem', fontWeight: '600', whiteSpace: 'nowrap' }}>
+                  {trackCount} titres
+                </label>
                 <input 
                   id="trackCountSmall"
-                  type="number" 
+                  type="range" 
                   min="1" 
                   max="100" 
                   value={trackCount}
-                  onChange={(e) => setTrackCount(parseInt(e.target.value) || 1)}
-                  style={{
-                    background: 'var(--spotify-black)',
-                    border: '1px solid var(--spotify-dark-grey)',
-                    color: 'white',
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    width: '60px',
-                    textAlign: 'center'
-                  }}
+                  onChange={(e) => setTrackCount(parseInt(e.target.value))}
+                  className="spotify-slider"
+                  style={{ maxWidth: '150px' }}
                 />
               </div>
               <button className="btn" onClick={generatePlaylist}>
