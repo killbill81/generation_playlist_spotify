@@ -38,6 +38,7 @@ export const loginToSpotify = async () => {
     code_challenge_method: 'S256',
     code_challenge: codeChallenge,
     redirect_uri: redirectUri,
+    show_dialog: 'true',
   };
 
   authUrl.search = new URLSearchParams(params).toString();
