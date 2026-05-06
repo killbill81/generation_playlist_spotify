@@ -35,6 +35,7 @@ function App() {
           window.history.replaceState({}, document.title, "/");
         }
         setIsLoading(false);
+        setStatus('');
       } else if (storedToken) {
         setToken(storedToken);
       }
